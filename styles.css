@@ -65,3 +65,20 @@ input[aria-invalid="true"] { border: 2px solid #a02020; }
 .skill-status[data-state="not-evidenced"] { color: #5a6775; }
 
 .skill-evidence { flex: 1 1 100%; margin: 0; line-height: 1.5; overflow-wrap: anywhere; }
+
+#export-error { color: #922020; }
+
+#export-output { margin-top: 1rem; }
+
+#summary-text {
+  box-sizing: border-box;
+  width: 100%;
+  font: inherit;
+  padding: 0.8rem;
+  border: 1px solid #526578;
+  border-radius: 0.3rem;
+  line-height: 1.5;
+  resize: vertical;
+}
+
+#copy-status { color: #1d5b32; margin-top: 0.5rem; }

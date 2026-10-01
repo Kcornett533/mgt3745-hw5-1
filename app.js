@@ -32,9 +32,15 @@
   const evidenceInput = document.querySelector('#evidence-input');
   const evidenceError = document.querySelector('#evidence-error');
   const saveStatus = document.querySelector('#save-status');
+  const exportBtn = document.querySelector('#export-btn');
+  const exportError = document.querySelector('#export-error');
+  const exportOutput = document.querySelector('#export-output');
+  const summaryText = document.querySelector('#summary-text');
+  const copyBtn = document.querySelector('#copy-btn');
+  const copyStatus = document.querySelector('#copy-status');
 
   let savedEvidence = {};
-  let selectedPathId = careerPaths[0].id;
+  let selectedPathId = '';
 
   function evidenceKey(pathId, skillName) {
     return `${pathId}::${skillName}`;
@@ -88,6 +94,11 @@
   }
 
   function renderPathOptions() {
+    const placeholder = document.createElement('option');
+    placeholder.value = '';
+    placeholder.textContent = 'Choose a career path';
+    pathSelect.append(placeholder);
+
     careerPaths.forEach(path => {
       const option = document.createElement('option');
       option.value = path.id;
@@ -106,6 +117,13 @@
     placeholder.value = '';
     placeholder.textContent = 'Choose a skill';
     skillSelect.append(placeholder);
+
+    if (!currentPath) {
+      const emptyItem = document.createElement('li');
+      emptyItem.textContent = 'Select a career path to see its skills.';
+      skillList.append(emptyItem);
+      return;
+    }
 
     currentPath.skills.forEach(skillName => {
       const storedText = savedEvidence[evidenceKey(selectedPathId, skillName)];
@@ -191,6 +209,70 @@
     skillSelect.value = '';
     evidenceInput.focus();
     saveStatus.textContent = `Evidence saved. ${chosenSkill} is now evidenced.`;
+  });
+
+  function generateSummary() {
+    const currentPath = findPath(selectedPathId);
+    const lines = [];
+    lines.push('Skill Summary');
+    lines.push('=============');
+    lines.push('');
+    lines.push('Career path: ' + currentPath.name);
+    lines.push('');
+
+    currentPath.skills.forEach(skillName => {
+      const storedText = savedEvidence[evidenceKey(selectedPathId, skillName)];
+      lines.push('- ' + skillName);
+      if (storedText) {
+        lines.push('    Status: Evidenced');
+        lines.push('    Evidence: ' + storedText);
+      } else {
+        lines.push('    Status: Not yet evidenced');
+      }
+      lines.push('');
+    });
+
+    const evidencedCount = currentPath.skills.filter(
+      skillName => savedEvidence[evidenceKey(selectedPathId, skillName)]
+    ).length;
+
+    lines.push('Evidenced skills: ' + evidencedCount + ' of ' + currentPath.skills.length);
+    return lines.join('\n');
+  }
+
+  exportBtn.addEventListener('click', () => {
+    exportError.textContent = '';
+    copyStatus.textContent = '';
+
+    if (selectedPathId === '') {
+      exportOutput.hidden = true;
+      exportError.textContent = 'Choose a career path before exporting.';
+      pathSelect.focus();
+      return;
+    }
+
+    const currentPath = findPath(selectedPathId);
+    const hasSkills = currentPath && currentPath.skills.length > 0;
+    if (!hasSkills) {
+      exportOutput.hidden = true;
+      exportError.textContent = 'There are no skills to summarize for this path.';
+      return;
+    }
+
+    summaryText.value = generateSummary();
+    exportOutput.hidden = false;
+    summaryText.focus();
+    summaryText.select();
+  });
+
+  copyBtn.addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText(summaryText.value);
+      copyStatus.textContent = 'Copied to clipboard.';
+    } catch {
+      summaryText.select();
+      copyStatus.textContent = 'Could not copy automatically. Select the text and copy manually.';
+    }
   });
 
   async function init() {
