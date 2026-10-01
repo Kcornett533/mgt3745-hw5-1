@@ -1,83 +1,75 @@
-# Entries: The First Delegated Feature
 
-> Replace this title and every *italic prompt* with your own words. Six
-> sections, in this order: What, See It Work, How to Run, Status, Links,
-> AI Use. GitHub renders this page; it can show, not only tell.
+# SkillPath
 
 ## What
 
-*HW4 repository: [link it here](https://github.com/YOUR-USER/mgt3745-hw4)*
+SkillPath is a tool for accounting students and recent graduates who want to understand which skills are relevant to their career goals and keep track of evidence they have gained through coursework, projects, or internships.
 
-*One paragraph naming the problem, the user, and the feature, with links to
-[PROJECT.md](context/PROJECT.md) and [FEATURES.md](context/FEATURES.md).
-One sentence on where data now lives and why (ADR-002).*
+The user selects a career path and sees its related skills. They can then attach evidence to a skill, and the system updates its status once the evidence is saved. For HW5, the project is adding F-06, an exportable skill summary, so students can use their skills and evidence in a resume or portfolio.
+
+The project is based on user research, including an interview with INT-03, a 2025 accounting graduate who said she had not figured out which skills to develop for her career.
 
 ## See It Work
 
-*A GIF or screenshot in `/docs` showing an entry surviving a cleared cache
-or appearing in a second browser. Evidence and storefront at once.*
+The application lets a student:
+- Select an accounting career path.
+- View the skills associated with that path.
+- Add evidence from coursework, projects, or internships.
+- See whether a skill is evidenced or not yet evidenced.
+- Export a summary of their skills and evidence. (HW5 feature to be implemented.)
 
-![See it work](docs/see-it-work.gif)
-
-```mermaid
-flowchart LR
-  A[Page loads] --> B[GET /entries]
-  B --> C[render]
-  D[User submits] --> E[POST /entries]
-  E -->|201| B
-  E -->|400| F[showError]
-  B -->|network fails| F
-```
+![SkillPath application](docs/image.png)
 
 ## How to Run
 
-Deployed: *`https://mgt3745-hw4.YOUR-SUBDOMAIN.workers.dev/entries`*
+1. Clone or download this repository.
+2. Open the project folder.
+3. Install the required dependencies:
 
-From a fresh Codespace:
+   ```bash
+   npm install
+   ```
 
-1. Open the repository in a Codespace. The devcontainer installs xdg-utils and runs `npm install`.
-2. `npx wrangler login --device`, then follow [docs/SESSION_B_COMMANDS.md](docs/SESSION_B_COMMANDS.md)
-   to create the database, run the schema, and deploy.
-3. Paste the deployed URL into `app.js` as `API`.
-4. Right-click `index.html`, choose **Open with Live Server**.
+4. Start the local development environment using the project's configured command:
 
-Run the code eval: `API=https://mgt3745-hw4.YOUR-SUBDOMAIN.workers.dev npm test`
+   ```bash
+   npx wrangler dev
+   ```
 
-![npm test passing](docs/npm-test.png)
+5. Open the local URL shown in the terminal.
 
-To run the Worker locally instead: `npm run dev` (port 8787, local D1 emulator).
+The application uses a Cloudflare Worker and D1 database for saving evidence. The database must be configured according to the project setup before testing save functionality.
+
+To run the automated tests:
+
+```bash
+API=<your-worker-url> npm test
+```
+
+Replace `<your-worker-url>` with the URL of the Worker you are testing.
 
 ## Status
 
-| Feature | EARS statement | Verdict |
-|---|---|---|
-| *Save an entry* | *WHEN a valid entry is submitted, THE SYSTEM SHALL store it* | *PASS* |
-| *Reject empty entry* | *IF text is missing, THEN THE SYSTEM SHALL reject with a reason* | *PASS* |
-| *Survive cleared cache* | *THE SYSTEM SHALL return stored entries on any device* | *PASS* |
-| *Network down* | *IF the server is unreachable, THE SYSTEM SHALL tell the user* | *CANNOT TEST YET* |
-| *Two clients, one table* | *...* | *DEFERRED (ADR-002)* |
+The existing F-03 evidence log is implemented using a Cloudflare Worker and D1 database. The application supports selecting career paths, viewing skills, attaching evidence, and displaying saved evidence.
 
-*Full verification table lives in [FEATURES.md](context/FEATURES.md).*
+F-06, the exportable skill summary, is the feature selected for HW5. Its specification and acceptance criteria are documented in `context/FEATURES.md`. The implementation, evaluation, and verification are being completed as part of this assignment.
 
 ## Delegation
 
-- [DDR-001](docs/DDR-001.md): *feature, tool, net hours*
-- [DDR-002](docs/DDR-002.md): *the HW4 Copilot delegation, written up*
-- [Comparison note](docs/COMPARISON.md)
+For HW5, Bolt.new is being used to generate an implementation of F-06 from the project's existing context files and committed specification.
+
+The generated code will be reviewed, tested, and corrected before being accepted into the project. The delegated output and review process will be documented in the `delegated/` folder and in the decision records.
+
+A separate AI Studio implementation will also be compared with the Bolt.new output. The comparison will document differences and findings rather than declaring one tool the overall winner.
 
 ## Links
 
-Reading order for a stranger: [PROJECT.md](context/PROJECT.md) →
-[USERS.md](context/USERS.md) → [FEATURES.md](context/FEATURES.md) →
-[ARCHITECTURE.md](context/ARCHITECTURE.md) → [STANDARDS.md](context/STANDARDS.md) →
-[TOOLS.md](context/TOOLS.md) → [STYLE.md](context/STYLE.md) →
-[EVALS.md](context/EVALS.md) → [SKILLS.md](context/SKILLS.md) → [CLAUDE.md](context/CLAUDE.md)
+- Project repository: https://github.com/ReginaChoi/mgt3745-hw5
+- Deployed application: https://mgt3745-hw4.rchoi47.workers.dev/entries
+- Previous HW4 project: https://github.com/ReginaChoi/mgt3745-hw4
 
 ## AI Use
 
-*Every delegation has a DDR under Delegation above. Hours spent on this assignment: ___.*
+AI tools were used to support development, review code, and help identify issues. The project specification and acceptance criteria are written before the delegated implementation is generated.
 
-*Retired text: Three proto-DDR questions. What did the agent write? What did you check,
-and how? What could you not fully verify, and what did you do about it?
-For the Worker specifically: name the thing you could not fully inspect.
-Hours spent: ___.*
+Bolt.new is being used for the HW5 F-06 feature. AI Studio will be used to create a comparison implementation. Generated code will be checked against the project's requirements, design tokens, and security standards. Testing results, corrections, and decisions will be documented in the evaluation files and decision records.
