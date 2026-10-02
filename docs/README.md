@@ -1,7 +1,10 @@
 # docs
 
-Put your See It Work GIF or screenshot here (`see-it-work.gif`), plus the two
-STYLE.md screenshots: the interface you admire and the one you resent.
+The See It Work evidence is provided as a screenshot rather than a GIF. The admired interface has a screenshot. A separate screenshot is not provided for the resented example because the example is based on my experience rather than a reproduced screenshot.
 
-Recording a GIF: the Codespace browser tab plus any screen recorder; export
-under 5 MB so GitHub renders it inline.
+
+see-it-work-screenshot ![see it work](../image.png)
+
+STYLE.md-Screenshot ![admire](../context/image-8.png)
+
+npm-test ![npm-test](npm-test.png)

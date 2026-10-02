@@ -44,7 +44,7 @@ The riskiest assumption in delegating F-06 is that bolt.new can add an exportabl
 
 ## 5. Evals
 
-- **Code:** `npm test` with `API=https://mgt3745-hw4.rchoi47.workers.dev`; 4 tests, 4 passing. ![npm test screenshot](image-9.png)
+- **Code:** `npm test` with `API=https://mgt3745-hw4.rchoi47.workers.dev`; 4 tests, 4 passing. [README.md](../docs/README.md)
 
 - **Judgment:** `docs/JUDGMENT.md`, 12 questions, two graders, agreement 100%.
 
