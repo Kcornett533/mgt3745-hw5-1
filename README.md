@@ -16,7 +16,7 @@ The application lets a student:
 - View the skills associated with that path.
 - Add evidence from coursework, projects, or internships.
 - See whether a skill is evidenced or not yet evidenced.
-- Export a summary of their skills and evidence. (HW5 feature to be implemented.)
+- Export a summary of their skills and evidence.
 
 ![SkillPath application](docs/image.png)
 
@@ -52,15 +52,17 @@ Replace `<your-worker-url>` with the URL of the Worker you are testing.
 
 The existing F-03 evidence log is implemented using a Cloudflare Worker and D1 database. The application supports selecting career paths, viewing skills, attaching evidence, and displaying saved evidence.
 
-F-06, the exportable skill summary, is the feature selected for HW5. Its specification and acceptance criteria are documented in `context/FEATURES.md`. The implementation, evaluation, and verification are being completed as part of this assignment.
+The HW3 browser-storage approach was replaced with the Worker/D1 architecture in HW4, so evidence is no longer stored in `localStorage`. The HW4 SQL implementation also uses parameterized `bind()` values rather than string-concatenated SQL.
+
+F-06, the exportable skill summary, is the feature selected for HW5. Its specification and acceptance criteria are documented in `context/FEATURES.md`. The implementation, evaluation, and verification were completed as part of this assignment.
 
 ## Delegation
 
-For HW5, Bolt.new is being used to generate an implementation of F-06 from the project's existing context files and committed specification.
+For HW5, Bolt.new was used to generate an implementation of F-06 from the project's existing context files and committed specification.
 
-The generated code will be reviewed, tested, and corrected before being accepted into the project. The delegated output and review process will be documented in the `delegated/` folder and in the decision records.
+The generated code was preserved, reviewed, tested, and corrected before being accepted into the project. The delegated output and review process are documented in the `delegated/` folder and in the decision records.
 
-A separate AI Studio implementation will also be compared with the Bolt.new output. The comparison will document differences and findings rather than declaring one tool the overall winner.
+AI Studio was also attempted with the same F-06 context and instruction, but it returned an invalid-argument error before producing an implementation. Therefore, no AI Studio implementation was available for a code comparison.
 
 ## Links
 
@@ -70,6 +72,6 @@ A separate AI Studio implementation will also be compared with the Bolt.new outp
 
 ## AI Use
 
-AI tools were used to support development, review code, and help identify issues. The project specification and acceptance criteria are written before the delegated implementation is generated.
+AI tools were used to support development, review code, and help identify issues. The project specification and acceptance criteria were written before the delegated implementation was generated.
 
-Bolt.new is being used for the HW5 F-06 feature. AI Studio will be used to create a comparison implementation. Generated code will be checked against the project's requirements, design tokens, and security standards. Testing results, corrections, and decisions will be documented in the evaluation files and decision records.
+Bolt.new was used for the HW5 F-06 feature. The generated code was checked against the project's requirements, design tokens, and security standards. AI Studio was attempted for comparison, but it returned an invalid-argument error before producing an implementation. Testing results, corrections, and decisions are documented in the evaluation files and decision records.

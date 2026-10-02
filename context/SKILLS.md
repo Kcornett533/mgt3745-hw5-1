@@ -16,4 +16,7 @@ errors; never throw to the console.
 **Check first:** the diff's file list, then innerHTML / concatenated SQL, then whether it used the tokens.
 **Reliably wrong (this week):** *fill from your error-analysis log*
 
-## <your entry>
+## Pattern: verify delegated builds before accepting them
+**When:** an AI tool generates a feature for an existing project.
+**Do:** preserve the original output first; inspect the diff, dependencies, storage, security-sensitive patterns, and design tokens; then run the feature's EARS checks and automated tests.
+**Because:** generated code can satisfy the visible feature while still changing architecture, adding dependencies, or violating project standards.
