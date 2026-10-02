@@ -18,7 +18,7 @@ The application lets a student:
 - See whether a skill is evidenced or not yet evidenced.
 - Export a summary of their skills and evidence.
 
-![SkillPath application](docs/image.png)
+![SkillPath application](image.png)
 
 ## How to Run
 
