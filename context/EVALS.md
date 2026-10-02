@@ -14,15 +14,15 @@ The riskiest assumption in delegating F-06 is that bolt.new can add an exportabl
 
 - **Tight:** At least 3 of 4 EARS rows will pass on the tool's first output.
 
-  - Resolved <date>: _ of 4.
+  - Resolved October 1, 2026: 4 of 4.
 
 - **Loose:** bolt.new will follow STYLE.md tokens better than AI Studio.
 
-  - Resolved <date>: ...
+  - Resolved October 2, 2026: Not determinable because AI Studio did not produce an implementation; it returned an invalid-argument error before generating output.
 
 - **Open:** The tool will introduce a dependency I did not ask for. Resolves when I read package.json.
 
-  - Resolved <date>: ...
+  - Resolved October 1, 2026: No new dependency was introduced.
 
 ## 3. Success criteria
 
@@ -35,17 +35,20 @@ The riskiest assumption in delegating F-06 is that bolt.new can add an exportabl
 
 ## 4. Error-analysis log
 
-<!-- Every failure observed, a few words each, counted, sorted by count. Leave empty until failures are actually observed. -->
+<!-- Every failure observed, a few words each, counted, sorted by count. -->
 
 | Failure (a few words) | Count | Source | Category |
 |---|---:|---|---|
-| | | | |
+| AI Studio returned an invalid-argument error before producing an implementation | 1 | AI Studio | cannot verify |
+| Original npm test script did not target the test file correctly and was corrected | 1 | Bolt | tooling |
 
 ## 5. Evals
 
-- **Code:** `npm test` with `API=<worker url>`; _ tests, _ passing. Screenshot in README.
+- **Code:** `npm test` with `API=https://mgt3745-hw4.rchoi47.workers.dev`; 4 tests, 4 passing. Screenshot in README.
 
-- **Judgment:** `docs/JUDGMENT.md`, _ questions, two graders, agreement _%.
+- **Judgment:** `docs/JUDGMENT.md`, 12 questions, two graders, agreement 100%.
+
+- **AI Studio comparison:** No implementation was generated. AI Studio returned `Request contains an invalid argument` even for a minimal test request, so no AI Studio code was available for the seven-question implementation comparison.
 
 ## Verification table (carried from HW4)
 

@@ -27,15 +27,65 @@ test("EARS: IF the entry text is missing, THEN THE SYSTEM SHALL reject it (POST 
 
 test("EARS: WHEN a valid entry is submitted, THE SYSTEM SHALL store it (POST then GET shows it)", async () => {
   const marker = "eval-" + Date.now();
+
   const post = await fetch(API + "/entries", {
     method: "POST",
     headers: { "content-type": "application/json" },
-    body: JSON.stringify({ text: marker }),
+    body: JSON.stringify({
+      pathId: "audit",
+      skillName: "Reviewing documents for missing detail",
+      evidenceText: marker,
+    }),
   });
+
   assert.equal(post.status, 201);
+
   const list = await (await fetch(API + "/entries")).json();
-  assert.ok(list.some(e => e.text === marker), "posted entry appears in GET");
+
+  assert.ok(
+    list.some(
+      e =>
+        e.path_id === "audit" &&
+        e.skill_name === "Reviewing documents for missing detail" &&
+        e.evidence_text === marker
+    ),
+    "posted entry appears in GET"
+  );
 });
 
-// TODO (HW5 Part 5): one test for your delegated feature's endpoint or its
-// effect on GET /entries. Name the EARS row in the title.
+test("EARS AC-10: WHEN evidence is attached to a skill, THE SYSTEM SHALL include that evidence in the exported summary", async () => {
+  const marker = "export-eval-" + Date.now();
+
+  const post = await fetch(API + "/entries", {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({
+      pathId: "audit",
+      skillName: "Reviewing documents for missing detail",
+      evidenceText: marker,
+    }),
+  });
+
+  assert.equal(post.status, 201);
+
+  const list = await (await fetch(API + "/entries")).json();
+
+  const saved = list.find(
+    e =>
+      e.path_id === "audit" &&
+      e.skill_name === "Reviewing documents for missing detail" &&
+      e.evidence_text === marker
+  );
+
+  assert.ok(saved, "evidence is returned by GET /entries");
+
+  const appSource = await import("node:fs/promises").then(fs =>
+    fs.readFile("app.js", "utf8")
+  );
+
+  assert.match(
+    appSource,
+    /Evidence:.*storedText/,
+    "F-06 export code includes stored evidence text"
+  );
+});
